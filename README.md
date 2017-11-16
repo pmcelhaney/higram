@@ -26,6 +26,21 @@ bigram message.txt
 
 Or pipe a stream into STDIN
 
+```sh
+echo "The quick brown fox and the quick blue hare." | bigram
 ```
-echo "The quick brown fox and the quick blue hare."
+
+## Example
+
+```sh
+$ echo "The quick brown fox and the quick blue hare." | bigram
+2 the quick
+1 quick brown
+1 brown fox
+1 fox and
+1 and the
+1 quick blue
+1 blue hare
 ```
+
+The output uses the same format as UNIX's [`uniq -c`](https://en.wikipedia.org/wiki/Uniq).
