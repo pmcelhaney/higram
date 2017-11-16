@@ -32,9 +32,12 @@ test('multiple spaces between words', () => {
     expect(higram('hello       world')).toEqual({'hello world': 1});
 });
 
+test('mixed whitespace (tabs, newline, etc.)', () => {
+    expect(higram('hello  \t\t \r \n     world')).toEqual({'hello world': 1});
+});
+
 
 /*
-multiple spaces
 mixed whitespace (tabs, newlines)
 the same word several times
 non word characters are ignored (letters, numbers, and hyphen count as word characters)

@@ -1,5 +1,5 @@
 module.exports = function higram(string) {
-    return string.trim().split(/ +/).reduce((histogram, word, index, words) => { 
+    return string.trim().split(/\s+/).reduce((histogram, word, index, words) => { 
         if (index === 0) {
             return histogram;
         }
