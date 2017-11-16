@@ -44,3 +44,12 @@ $ echo "The quick brown fox and the quick blue hare." | bigram
 ```
 
 The output uses the same format as UNIX's [`uniq -c`](https://en.wikipedia.org/wiki/Uniq).
+
+
+## Assumptions
+
+- The input is ASCII text 
+- Case-insenstiive ("The quick" matches "the quick")
+- A word consists of letters, numbers, and hypen (-). Anything else is a delimiter.
+- Consecutive delimiters are collapsed to one ("the quick" matches "the      quick").
+
