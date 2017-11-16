@@ -1,15 +1,19 @@
 module.exports = {
     read(stream, callback) {
         const parts = [];
+        const words = [];
+        let partialWord = '';
 
         stream.on('data', chunk => {
-            parts.push(chunk.toString());
+            const wordsOrParts = parseWords(chunk.toString().toLowerCase());
+            wordsOrParts[0] = partialWord + wordsOrParts[0];
+            partialWord = wordsOrParts.pop();
+            words.push(...wordsOrParts);
         })
 
         stream.on('end', () => {
-            const string = parts.join('');
-            const bigrams = parseWords(string.toLowerCase());
-            callback(histogram(bigrams));
+            words.push(partialWord);
+            callback(histogram(words.filter(w => w.length > 0)));
         })
 
     }
@@ -17,7 +21,7 @@ module.exports = {
 }
 
 function parseWords(string) {
-    return string.trim().split(/[^a-z-]+/);
+    return string.split(/[^a-z-]+/);
 }
 
 function histogram(inputs) {
