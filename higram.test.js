@@ -20,8 +20,11 @@ test('one word', () => {
     expect(higram('lonely')).toEqual({});
 });
 
+test('empty', () => {
+    expect(higram('')).toEqual({});
+});
+
 /*
-zero words
 only whitespace
 multiple spaces
 mixed whitespace (tabs, newlines)
