@@ -36,6 +36,14 @@ test('mixed whitespace (tabs, newline, etc.)', () => {
     expect(higram('hello  \t\t \r \n     world')).toEqual({'hello world': 1});
 });
 
+test('non-whitespace delimiters', () => {
+    expect(higram('hello;:_+world')).toEqual({'hello world': 1});
+});
+
+test('hyphenated words', () => {
+    expect(higram('hello   mother-in-law')).toEqual({'hello mother-in-law': 1});
+});
+
 
 /*
 mixed whitespace (tabs, newlines)
