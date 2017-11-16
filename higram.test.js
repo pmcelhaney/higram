@@ -28,9 +28,12 @@ test('only whitespace', () => {
     expect(higram('     ')).toEqual({});
 });
 
+test('multiple spaces between words', () => {
+    expect(higram('hello       world')).toEqual({'hello world': 1});
+});
+
 
 /*
-only whitespace
 multiple spaces
 mixed whitespace (tabs, newlines)
 the same word several times
