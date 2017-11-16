@@ -1,15 +1,19 @@
 const higram = require('./higram');
 
 test('a single bigram', () => {
-  expect(higram('hello world')).toMatchObject({'hello world': 1});
+  expect(higram('hello world')).toEqual({'hello world': 1});
 });
 
 test('three words', () => {
-  expect(higram('three blind mice')).toMatchObject({'three blind': 1, 'blind mice': 1}); 
+  expect(higram('three blind mice')).toEqual({'three blind': 1, 'blind mice': 1}); 
 })
 
 test('counts occurences', () => {
-  expect(higram('the quick brown the quick')).toMatchObject({'the quick': 2, 'quick brown': 1, 'brown the': 1}); 
+  expect(higram('the quick brown the quick')).toEqual({'the quick': 2, 'quick brown': 1, 'brown the': 1}); 
+});
+
+test('counts occurences', () => {
+expect(higram('the quick brown the quick')).toEqual({'the quick': 2, 'quick brown': 1, 'brown the': 1}); 
 });
 
 /*
