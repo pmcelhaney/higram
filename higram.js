@@ -7,16 +7,13 @@ module.exports = {
         })
 
         stream.on('end', () => {
-            callback(higram(parts.join('')));
+            const string = parts.join('');
+            const bigrams = parseWords(string.toLowerCase());
+            callback(histogram(bigrams));
         })
 
     }
 
-}
-
-
-function higram(string) {
-    return histogram(parseWords(string.toLowerCase()));
 }
 
 function parseWords(string) {
