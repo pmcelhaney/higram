@@ -24,6 +24,11 @@ test('empty', () => {
     expect(higram('')).toEqual({});
 });
 
+test('only whitespace', () => {
+    expect(higram('     ')).toEqual({});
+});
+
+
 /*
 only whitespace
 multiple spaces
