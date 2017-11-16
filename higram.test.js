@@ -44,11 +44,12 @@ test('hyphenated words', () => {
     expect(higram('hello   mother-in-law')).toEqual({'hello mother-in-law': 1});
 });
 
+test('same word three times', () => {
+    expect(higram('boom boom boom')).toEqual({'boom boom': 2})
+})
+
 
 /*
-mixed whitespace (tabs, newlines)
-the same word several times
-non word characters are ignored (letters, numbers, and hyphen count as word characters)
 case-insensitive (always outputs lowercase)
 stream rather than string
 test the output function
