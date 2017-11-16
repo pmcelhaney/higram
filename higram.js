@@ -1,5 +1,5 @@
 module.exports = {
-    read(stream, callback) {
+    generateBigramCountsFromStream(stream, callback) {
         const parts = [];
         const words = [];
         let partialWord = '';
@@ -13,7 +13,7 @@ module.exports = {
 
         stream.on('end', () => {
             words.push(partialWord);
-            callback(histogram(words.filter(w => w.length > 0)));
+            callback(countBigrams(words.filter(w => w.length > 0)));
         })
 
     }
@@ -24,13 +24,13 @@ function parseWords(string) {
     return string.split(/[^a-z-]+/);
 }
 
-function histogram(inputs) {
-    return inputs.reduce((histogram, word, index, words) => { 
+function countBigrams(words) {
+    return words.reduce((counts, word, index) => { 
         if (index === 0) {
-            return histogram;
+            return counts;
         }
         const bigram = words[index-1] + ' ' + word; 
-        histogram[bigram] = (histogram[bigram] || 0) + 1; 
-        return histogram 
+        counts[bigram] = (counts[bigram] || 0) + 1; 
+        return counts; 
     }, {});
 }

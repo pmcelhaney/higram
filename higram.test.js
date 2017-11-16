@@ -61,7 +61,7 @@ examples.forEach(example => {
     stream.push(null);
     
     xtest(example.name, (done) => {
-        higram.read(stream, histogram => {
+        higram.generateBigramCountsFromStream(stream, histogram => {
             expect(histogram).toEqual(example.out)
             done();
         });
@@ -78,12 +78,12 @@ test('handles a stream that\'s not all in one chunk', (done) => {
     stream.push('s');
     stream.push(null);
 
-    higram.read(stream, histogram => {
+    higram.generateBigramCountsFromStream(stream, histogram => {
         expect(histogram).toEqual({"is what": 1, "it is": 2, "what it": 1})
         done();
     });
+});
 
-})
 
 
 
