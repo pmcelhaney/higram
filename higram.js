@@ -23,7 +23,6 @@ module.exports = {
         const stream = new Readable();
         const data = [];
 
-        console.log(counts);
         for (name in counts) {
             data.push({name, count: counts[name] });
         }

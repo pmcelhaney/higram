@@ -104,8 +104,6 @@ test('writes the histogram to a stream', (done) => {
         output += chunk.toString();
     });
 
-
-
     stream.on('end', () => {
         expect(output).toEqual(expected);
         done();
@@ -117,7 +115,6 @@ test('writes the histogram to a stream', (done) => {
 
 
 /*
-test the output function
 integration test (STDIN)
 integration test (file name as argument)
 the actual test case given as an example
