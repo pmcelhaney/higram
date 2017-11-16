@@ -60,7 +60,7 @@ examples.forEach(example => {
     stream.push(example.in);
     stream.push(null);
     
-    xtest(example.name, (done) => {
+    test(example.name, (done) => {
         higram.generateBigramCountsFromStream(stream, histogram => {
             expect(histogram).toEqual(example.out)
             done();
@@ -84,6 +84,35 @@ test('handles a stream that\'s not all in one chunk', (done) => {
     });
 });
 
+test('writes the histogram to a stream', (done) => {
+    const counts = {
+        'one': 1,
+        'two': 2,
+        'ten': 10
+    }
+
+    const expected = [
+        '10 ten\n',
+        '2 two\n',
+        '1 one\n'
+    ].join('');
+
+    const stream = higram.histogramReader(counts);
+
+    let output = '';
+    stream.on('data', chunk => {
+        output += chunk.toString();
+    });
+
+
+
+    stream.on('end', () => {
+        expect(output).toEqual(expected);
+        done();
+    });
+
+
+})
 
 
 

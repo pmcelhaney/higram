@@ -1,3 +1,5 @@
+const Readable = require('stream').Readable;
+
 module.exports = {
     generateBigramCountsFromStream(stream, callback) {
         const parts = [];
@@ -15,7 +17,25 @@ module.exports = {
             words.push(partialWord);
             callback(countBigrams(words.filter(w => w.length > 0)));
         })
+    },
 
+    histogramReader(counts) {
+        const stream = new Readable();
+        const data = [];
+
+        console.log(counts);
+        for (name in counts) {
+            data.push({name, count: counts[name] });
+        }
+
+        data.sort((a, b) => b.count - a.count);
+
+        data.forEach(item => {
+            stream.push(`${item.count} ${item.name}\n`);
+        })
+
+        stream.push(null);
+        return stream;
     }
 
 }
