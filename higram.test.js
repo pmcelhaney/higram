@@ -115,7 +115,23 @@ test('writes the histogram to a stream', (done) => {
 
 
 /*
-integration test (STDIN)
+WordTokenizer
+BigramCountParser
+Histogram
+integration test (stdin)
 integration test (file name as argument)
 the actual test case given as an example
+*/
+
+/*
+End goal:
+
+const inputStream = process.stdin;
+
+const tokenizer = new WordTokenizer();
+const bigramCountParser = new BigramCountParser();
+bigramCountParser.on('histogram', histogram =>
+    histogram.asTextStream().pipe(process.stdout);
+);
+inputStream.pipe(tokenizer).pipe(bigramCountParser);
 */
