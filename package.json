@@ -1,0 +1,11 @@
+{
+  "name": "higram",
+  "version": "1.0.0",
+  "description": "VAE coding exercise",
+  "main": "bigram.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Patrick McElhaney",
+  "license": "ISC"
+}
