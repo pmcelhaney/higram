@@ -1,5 +1,5 @@
 module.exports = function higram(string) {
-    return histogram(parseWords(string));
+    return histogram(parseWords(string.toLowerCase()));
 }
 
 function parseWords(string) {

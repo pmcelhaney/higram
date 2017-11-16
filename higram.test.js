@@ -48,6 +48,9 @@ test('same word three times', () => {
     expect(higram('boom boom boom')).toEqual({'boom boom': 2})
 })
 
+test('case-insensitive', () => {
+    expect(higram('Boom boom POW')).toEqual({'boom boom': 1, 'boom pow': 1});
+});
 
 /*
 case-insensitive (always outputs lowercase)
