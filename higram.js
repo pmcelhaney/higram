@@ -1,4 +1,21 @@
-module.exports = function higram(string) {
+module.exports = {
+    read(stream, callback) {
+        const parts = [];
+
+        stream.on('data', chunk => {
+            parts.push(chunk.toString());
+        })
+
+        stream.on('end', () => {
+            callback(higram(parts.join('')));
+        })
+
+    }
+
+}
+
+
+function higram(string) {
     return histogram(parseWords(string.toLowerCase()));
 }
 

@@ -1,3 +1,4 @@
+const Readable = require('stream').Readable;
 const higram = require('./higram');
 
 const examples = [
@@ -54,13 +55,19 @@ const examples = [
 ]
 
 examples.forEach(example => {
-    test(example.name, () => {
-        expect(higram(example.in)).toEqual(example.out)
+    const stream = new Readable();
+    stream.push(example.in);
+    stream.push(null);
+    
+    test(example.name, (done) => {
+        higram.read(stream, histogram => {
+            expect(histogram).toEqual(example.out)
+            done();
+        });
     });
 })
 
 /*
-case-insensitive (always outputs lowercase)
 stream rather than string
 test the output function
 integration test (STDIN)
