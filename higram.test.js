@@ -4,6 +4,9 @@ test('a single bigram', () => {
   expect(higram('hello world')).toMatchObject({'hello world': 1});
 });
 
+test('three words', () => {
+  expect(higram('three blind mice ')).toMatchObject({'three blind': 1, 'blind mice': 1}); 
+})
 
 /*
 three words
