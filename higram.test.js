@@ -5,11 +5,14 @@ test('a single bigram', () => {
 });
 
 test('three words', () => {
-  expect(higram('three blind mice ')).toMatchObject({'three blind': 1, 'blind mice': 1}); 
+  expect(higram('three blind mice')).toMatchObject({'three blind': 1, 'blind mice': 1}); 
 })
 
+test('counts occurences', () => {
+  expect(higram('the quick brown the quick')).toMatchObject({'the quick': 2, 'quick brown': 1, 'brown the': 1}); 
+});
+
 /*
-three words
 one word
 zero words
 only whitespace
