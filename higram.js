@@ -1,5 +1,13 @@
 module.exports = function higram(string) {
-    return string.trim().split(/[^a-z-]+/).reduce((histogram, word, index, words) => { 
+    return histogram(parseWords(string));
+}
+
+function parseWords(string) {
+    return string.trim().split(/[^a-z-]+/);
+}
+
+function histogram(inputs) {
+    return inputs.reduce((histogram, word, index, words) => { 
         if (index === 0) {
             return histogram;
         }
