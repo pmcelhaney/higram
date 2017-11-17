@@ -3,12 +3,19 @@ const Transform = require('stream').Transform;
 module.exports = class WordTokenizer extends Transform {
   
     constructor () {
-        super();    
+        super();
+        this.word = [];    
     }
 
     _transform (chunk, encoding, callback) {
         const token = chunk.toString();
-        this.push(token);
+        for (let i = 0; i < chunk.length; i++) {
+            const letter = String.fromCharCode(chunk[i]);
+            if (letter != ' ') {
+                this.word.push(letter);
+            }
+        }
+        this.push(this.word.join(''));
         callback();
     }
 }

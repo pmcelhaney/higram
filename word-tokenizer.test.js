@@ -8,6 +8,12 @@ const examples = [
         in: ['hello'],
         out: ['hello'],
     },
+
+    {
+        name: 'whitepace', 
+        in: [' hello '],
+        out: ['hello'],
+    },
 ]
 
 examples.forEach(example => {
