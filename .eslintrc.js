@@ -6,6 +6,7 @@ module.exports = {
     },
     "rules": {
         "class-methods-use-this": ["off"],
-        "no-underscore-dangle": ["off"]
+        "no-underscore-dangle": ["off"],
+        "no-use-before-define": ["off"]
     }
 };
