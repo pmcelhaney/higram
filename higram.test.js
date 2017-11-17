@@ -115,8 +115,8 @@ test('writes the histogram to a stream', (done) => {
 
 
 /*
+HistogramTokenizer
 WordTokenizer
-BigramParser
 integration test (stdin)
 integration test (file name as argument)
 the actual test case given as an example
