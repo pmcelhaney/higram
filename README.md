@@ -1,7 +1,5 @@
 # Patrick McElhaney's Coding Exercise
 
-(The README was written before the first line of code, so these instructions probably don't work yet.)
-
 ## Installation
 
 You should have NodeJS installed.
@@ -21,19 +19,19 @@ npm test
 Call bigram and pass it a text file.
 
 ```sh
-bigram message.txt
+bigram.js message.txt
 ```
 
 Or pipe a stream into STDIN
 
 ```sh
-echo "The quick brown fox and the quick blue hare." | bigram
+echo "The quick brown fox and the quick blue hare." | bigram.js
 ```
 
 ## Example
 
 ```sh
-$ echo "The quick brown fox and the quick blue hare." | bigram
+$ echo "The quick brown fox and the quick blue hare." | bigram.js
 2 the quick
 1 quick brown
 1 brown fox
