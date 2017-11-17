@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const inputStream = process.stdin;
+const fs = require('fs');
 const WordTokenizer = require('./word-tokenizer');
 const BigramTokenizer = require('./bigram-tokenizer');
 const HistogramParser = require('./histogram-parser');
@@ -14,7 +14,15 @@ histogramParser.on('histogram', (histogram) => {
   new HistogramReader(histogram).pipe(process.stdout);
 });
 
-inputStream
+inputStream()
   .pipe(wordTokenizer)
   .pipe(bigramTokenizer)
   .pipe(histogramParser);
+
+
+function inputStream() {
+  if (process.argv.length > 2) {
+    return fs.createReadStream(process.argv[2]);
+  }
+  return process.stdin;
+}
