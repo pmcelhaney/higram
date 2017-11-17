@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 const inputStream = process.stdin;
 const WordTokenizer = require('./word-tokenizer');
