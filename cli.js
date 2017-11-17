@@ -1,5 +1,20 @@
-const higram = require('./higram');
 
-higram.generateBigramCountsFromStream(process.stdin, counts => {
-    higram.histogramReader(counts).pipe(process.stdout);
+const inputStream = process.stdin;
+const WordTokenizer = require('./word-tokenizer');
+const BigramTokenizer = require('./bigram-tokenizer');
+const HistogramParser = require('./histogram-parser');
+const HistogramReader = require('./histogram-reader');
+
+const wordTokenizer = new WordTokenizer();
+const bigramTokenizer = new BigramTokenizer();
+const histogramParser = new HistogramParser();
+const histogramReader = new HistogramReader();
+
+histogramParser.on('histogram', histogram => {
+    new HistogramReader(histogram).pipe(process.stdout);
 });
+
+inputStream
+    .pipe(wordTokenizer)
+    .pipe(bigramTokenizer)
+    .pipe(histogramParser);

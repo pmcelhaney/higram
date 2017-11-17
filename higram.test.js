@@ -122,20 +122,3 @@ integration test (file name as argument)
 the actual test case given as an example
 */
 
-/*
-End goal:
-
-const inputStream = process.stdin;
-
-const wordTokenizer = new WordTokenizer();
-const bigramTokenizer = new BigramTokenizer();
-
-histogramParser.on('histogram', histogram =>
-    new HistogramReader(histogram).pipe(process.stdout);
-);
-
-inputStream
-    .pipe(wordTokenizer)
-    .pipe(bigramTokenizer)
-    .pipe(histogramParser);
-*/
