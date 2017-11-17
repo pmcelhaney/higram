@@ -8,13 +8,12 @@ const HistogramReader = require('./histogram-reader');
 const wordTokenizer = new WordTokenizer();
 const bigramTokenizer = new BigramTokenizer();
 const histogramParser = new HistogramParser();
-const histogramReader = new HistogramReader();
 
-histogramParser.on('histogram', histogram => {
-    new HistogramReader(histogram).pipe(process.stdout);
+histogramParser.on('histogram', (histogram) => {
+  new HistogramReader(histogram).pipe(process.stdout);
 });
 
 inputStream
-    .pipe(wordTokenizer)
-    .pipe(bigramTokenizer)
-    .pipe(histogramParser);
+  .pipe(wordTokenizer)
+  .pipe(bigramTokenizer)
+  .pipe(histogramParser);

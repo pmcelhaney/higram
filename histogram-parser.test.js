@@ -1,19 +1,19 @@
-const Readable = require('stream').Readable;
+const { Readable } = require('stream');
 
 const HistogramParser = require('./histogram-parser.js');
 
 test('emit a histogram', (done) => {
-    const parser = new HistogramParser();
-    const stream = new Readable();
-    stream.push('hello');
-    stream.push('hello');
-    stream.push('world');
-    stream.push(null);
+  const parser = new HistogramParser();
+  const stream = new Readable();
+  stream.push('hello');
+  stream.push('hello');
+  stream.push('world');
+  stream.push(null);
 
-    parser.on('histogram', histogram => {
-        expect(histogram).toEqual({hello: 2, world: 1})
-        done();
-    })
+  parser.on('histogram', (histogram) => {
+    expect(histogram).toEqual({ hello: 2, world: 1 });
+    done();
+  });
 
-    stream.pipe(parser);
-})
+  stream.pipe(parser);
+});

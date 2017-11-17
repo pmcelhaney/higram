@@ -1,20 +1,20 @@
-const Writable = require('stream').Writable;
+const { Writable } = require('stream');
 
 module.exports = class HistogramParser extends Writable {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.histogram = {};
+    this.histogram = {};
 
-        this.on('finish', () => {
-            this.emit('histogram', this.histogram);    
-        })
-    }
+    this.on('finish', () => {
+      this.emit('histogram', this.histogram);
+    });
+  }
 
-    _write(chunk, encoding, callback) {
-        const item = chunk.toString();
-        this.histogram[item] = (this.histogram[item] || 0) + 1;
+  _write(chunk, encoding, callback) {
+    const item = chunk.toString();
+    this.histogram[item] = (this.histogram[item] || 0) + 1;
 
-        callback();
-    }
-}
+    callback();
+  }
+};

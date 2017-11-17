@@ -1,21 +1,20 @@
-const Readable = require('stream').Readable;
+const { Readable } = require('stream');
 
 module.exports = class HistogramReader extends Readable {
-    constructor(histogram) {
-        super();
-        const data = [];
-        
-        for (let name in histogram) {
-            data.push({name, count: histogram[name] });
-        }
+  constructor(histogram) {
+    super();
+    const data = [];
 
-        data.sort((a, b) => b.count - a.count);
+    Object.keys(histogram).forEach((name) => {
+      data.push({ name, count: histogram[name] });
+    });
 
-        data.forEach(item => {
-            this.push(`${item.count} ${item.name}\n`);
-        })
+    data.sort((a, b) => b.count - a.count);
 
-        this.push(null);
-    }
+    data.forEach((item) => {
+      this.push(`${item.count} ${item.name}\n`);
+    });
 
-}
+    this.push(null);
+  }
+};
