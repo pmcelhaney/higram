@@ -5,7 +5,7 @@ module.exports = class Histogram {
     }
 
     add (item) {
-        this.counts[item] = 1;
+        this.counts[item] = (this.counts[item] || 0) + 1;
     }
     
     toObject() {
