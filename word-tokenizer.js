@@ -1,29 +1,56 @@
 const Transform = require('stream').Transform;
 
+const CHAR_CODES = {
+    a: 'a'.charCodeAt(0),
+    z: 'z'.charCodeAt(0),
+    A: 'A'.charCodeAt(0),
+    Z: 'Z'.charCodeAt(0),
+    '-': '-'.charCodeAt(0)
+}
+
 module.exports = class WordTokenizer extends Transform {
   
     constructor () {
         super();
-        this.word = [];    
+        this.word = [];
+   
     }
 
     _transform (chunk, encoding, callback) {
         const token = chunk.toString();
         for (let i = 0; i < chunk.length; i++) {
-            const character = String.fromCharCode(chunk[i]);
-            if (this.isNotDelimiter(character)) {
-                this.word.push(character);
+            const charCode = chunk[i];
+            if (this.isDelimiter(charCode)) {
+                this.pushWord();
+            } else {
+                this.word.push(String.fromCharCode(charCode).toLowerCase());
             }
         }
-        this.push(this.word.join(''));
+ 
         callback();
     }
 
-    isDelimiter(character) {
-        return character === ' ';
+    _final (callback) {
+        this.pushWord();
+        callback();
     }
 
-    isNotDelimiter(character) {
-        return !this.isDelimiter(character)
+    pushWord() {
+        this.push(this.word.join(''));
+        this.word = []; 
     }
+
+    isDelimiter(charCode) {
+        if (charCode >= CHAR_CODES.a && charCode <= CHAR_CODES.z) {
+            return false;
+        }
+        if (charCode >= CHAR_CODES.A && charCode <= CHAR_CODES.Z) {
+            return false;
+        }
+        if (charCode === CHAR_CODES['-']) {
+            return false;
+        }
+        return true;
+    }
+
 }
