@@ -44,8 +44,10 @@ The output uses the same format as UNIX's [`uniq -c`](https://en.wikipedia.org/w
 To run the tests:
 
 ```sh
-npm test
+npm test # run the tests once
+npm run tdd # run the tests continuously while developing
 ```
+See also [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Assumptions
 
