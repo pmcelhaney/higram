@@ -10,7 +10,7 @@ test('emit a histogram', (done) => {
   stream.push('world');
   stream.push(null);
 
-  parser.on('histogram', (histogram) => {
+  parser.on('data', (histogram) => {
     expect(histogram).toEqual({ hello: 2, world: 1 });
     done();
   });

@@ -4,21 +4,7 @@ const fs = require('fs');
 const WordTokenizer = require('../lib/word-tokenizer');
 const BigramTokenizer = require('../lib/bigram-tokenizer');
 const HistogramParser = require('../lib/histogram-parser');
-const HistogramReader = require('../lib/histogram-reader');
-
-const wordTokenizer = new WordTokenizer();
-const bigramTokenizer = new BigramTokenizer();
-const histogramParser = new HistogramParser();
-
-histogramParser.on('histogram', (histogram) => {
-  new HistogramReader(histogram).pipe(process.stdout);
-});
-
-inputStream()
-  .pipe(wordTokenizer)
-  .pipe(bigramTokenizer)
-  .pipe(histogramParser);
-
+const HistogramPrinter = require('../lib/histogram-printer');
 
 function inputStream() {
   if (process.argv.length > 2) {
@@ -26,3 +12,11 @@ function inputStream() {
   }
   return process.stdin;
 }
+
+inputStream()
+  .pipe(new WordTokenizer())
+  .pipe(new BigramTokenizer())
+  .pipe(new HistogramParser())
+  .pipe(new HistogramPrinter())
+  .pipe(process.stdout);
+
