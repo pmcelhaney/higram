@@ -1,4 +1,4 @@
-const HistogramReader = require('./histogram-reader.js');
+const HistogramReader = require('../lib/histogram-reader.js');
 
 test('reads a histogram to a stream', (done) => {
   const stream = new HistogramReader({

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const WordTokenizer = require('./word-tokenizer');
-const BigramTokenizer = require('./bigram-tokenizer');
-const HistogramParser = require('./histogram-parser');
-const HistogramReader = require('./histogram-reader');
+const WordTokenizer = require('../lib/word-tokenizer');
+const BigramTokenizer = require('../lib/bigram-tokenizer');
+const HistogramParser = require('../lib/histogram-parser');
+const HistogramReader = require('../lib/histogram-reader');
 
 const wordTokenizer = new WordTokenizer();
 const bigramTokenizer = new BigramTokenizer();

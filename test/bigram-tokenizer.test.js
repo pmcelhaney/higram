@@ -1,4 +1,4 @@
-const BigramTokenizer = require('./bigram-tokenizer');
+const BigramTokenizer = require('../lib/bigram-tokenizer');
 
 const { Readable, Writable } = require('stream');
 

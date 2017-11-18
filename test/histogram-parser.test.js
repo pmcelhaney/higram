@@ -1,6 +1,6 @@
 const { Readable } = require('stream');
 
-const HistogramParser = require('./histogram-parser.js');
+const HistogramParser = require('../lib/histogram-parser.js');
 
 test('emit a histogram', (done) => {
   const parser = new HistogramParser();

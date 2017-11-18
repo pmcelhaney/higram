@@ -2,7 +2,10 @@
   "name": "higram",
   "version": "1.0.0",
   "description": "VAE coding exercise",
-  "main": "bigram.js",
+  "main": "./bin/main.js",
+  "bin": {
+    "higram": "./bin/cli.js"
+  },
   "scripts": {
     "test": "jest",
     "tdd": "jest --watch",
