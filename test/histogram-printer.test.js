@@ -1,4 +1,5 @@
 const HistogramPrinter = require('../lib/histogram-printer');
+const StreamTester = require('./stream-tester');
 
 const { Readable, Writable } = require('stream');
 
@@ -16,28 +17,14 @@ const examples = [
   },
 ];
 
-examples.forEach((example) => {
-  test(example.name, (done) => {
-    const printer = new HistogramPrinter();
-    const faucet = new Readable({ objectMode: true });
-    const sink = new Writable();
+class HistogramPrinterTester extends StreamTester {
+  constructor() {
+    super({ inputObjectMode: true });
+  }
 
-    const output = [];
+  createStream() {
+    return new HistogramPrinter();
+  }
+}
 
-    sink._write = (chunk, encoding, callback) => {
-      output.push(chunk.toString());
-      callback();
-    };
-
-    sink.on('finish', () => {
-      expect(output).toEqual(example.out);
-      done();
-    });
-
-    faucet.pipe(printer).pipe(sink);
-
-    example.in.forEach(token => faucet.push(token));
-    faucet.push(null);
-  });
-});
-
+new HistogramPrinterTester().test(examples);

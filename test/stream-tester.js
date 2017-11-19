@@ -1,6 +1,12 @@
 const { Readable, Writable } = require('stream');
 
 module.exports = class StreamTester {
+
+  constructor(options = {}) {
+    this.inputObjectMode = options.inputObjectMode;
+    this.outputObjectMode = options.outputObjectMode;
+  }
+
   createStream() {
     throw new Error('createStream() must be implemented by a subclass');
   }
@@ -9,8 +15,8 @@ module.exports = class StreamTester {
     examples.forEach((example) => {
       test(example.name, (done) => {
         const stream = this.createStream();
-        const faucet = new Readable();
-        const sink = new Writable();
+        const faucet = new Readable({ objectMode: this.inputObjectMode });
+        const sink = new Writable({ objectMode: this.outputObjectMode });
 
         const output = [];
 
