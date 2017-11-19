@@ -1,6 +1,5 @@
 const BigramTokenizer = require('../lib/bigram-tokenizer');
-
-const { Readable, Writable } = require('stream');
+const StreamTester = require('./stream-tester');
 
 const examples = [
   {
@@ -25,28 +24,11 @@ const examples = [
   },
 ];
 
-examples.forEach((example) => {
-  test(example.name, (done) => {
-    const tokenizer = new BigramTokenizer();
-    const faucet = new Readable();
-    const sink = new Writable();
+class BigramTokenizerTester extends StreamTester {
+  createStream() {
+    return new BigramTokenizer();
+  }
+}
 
-    const output = [];
-
-    sink._write = (chunk, encoding, callback) => {
-      output.push(chunk.toString());
-      callback();
-    };
-
-    sink.on('finish', () => {
-      expect(output).toEqual(example.out);
-      done();
-    });
-
-    faucet.pipe(tokenizer).pipe(sink);
-
-    example.in.forEach(token => faucet.push(token));
-    faucet.push(null);
-  });
-});
+new BigramTokenizerTester().test(examples);
 
