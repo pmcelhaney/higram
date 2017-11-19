@@ -1,19 +1,27 @@
-const { Readable } = require('stream');
-
+const StreamTester = require('./stream-tester');
 const HistogramParser = require('../lib/histogram-parser.js');
 
-test('emit a histogram', (done) => {
-  const parser = new HistogramParser();
-  const stream = new Readable();
-  stream.push('hello');
-  stream.push('hello');
-  stream.push('world');
-  stream.push(null);
+const examples = [
+  {
+    name: 'a simple histogram',
+    in: ['hello', 'hello', 'world'],
+    out: [{ hello: 2, world: 1 }],
+  },
+  {
+    name: 'no data',
+    in: [],
+    out: [{}],
+  },
+];
 
-  parser.on('data', (histogram) => {
-    expect(histogram).toEqual({ hello: 2, world: 1 });
-    done();
-  });
+class HistogramParserTester extends StreamTester {
+  constructor() {
+    super({ outputObjectMode: true });
+  }
 
-  stream.pipe(parser);
-});
+  createStream() {
+    return new HistogramParser();
+  }
+}
+
+new HistogramParserTester().test(examples);

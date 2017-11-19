@@ -15,13 +15,13 @@ module.exports = class StreamTester {
     examples.forEach((example) => {
       test(example.name, (done) => {
         const stream = this.createStream();
-        const faucet = new Readable({ objectMode: this.inputObjectMode });
+        const source = new Readable({ objectMode: this.inputObjectMode });
         const sink = new Writable({ objectMode: this.outputObjectMode });
 
         const output = [];
 
         sink._write = (chunk, encoding, callback) => {
-          output.push(chunk.toString());
+          output.push(this.outputObjectMode ? chunk : chunk.toString());
           callback();
         };
 
@@ -30,10 +30,10 @@ module.exports = class StreamTester {
           done();
         });
 
-        faucet.pipe(stream).pipe(sink);
+        source.pipe(stream).pipe(sink);
 
-        example.in.forEach(token => faucet.push(token));
-        faucet.push(null);
+        example.in.forEach(token => source.push(token));
+        source.push(null);
       });
     });
   }
