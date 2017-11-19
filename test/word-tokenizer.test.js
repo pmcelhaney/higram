@@ -1,6 +1,5 @@
-const BigramTokenizer = require('../lib/word-tokenizer');
-
-const { Readable, Writable } = require('stream');
+const WordTokenizer = require('../lib/word-tokenizer');
+const StreamTester = require('./stream-tester');
 
 const examples = [
   {
@@ -40,28 +39,10 @@ const examples = [
   },
 ];
 
-examples.forEach((example) => {
-  test(example.name, (done) => {
-    const tokenizer = new BigramTokenizer();
-    const faucet = new Readable();
-    const sink = new Writable();
+class WordTokenizerTester extends StreamTester {
+  createStream() {
+    return new WordTokenizer();
+  }
+}
 
-    const output = [];
-
-    sink._write = (chunk, encoding, callback) => {
-      output.push(chunk.toString());
-      callback();
-    };
-
-    sink.on('finish', () => {
-      expect(output).toEqual(example.out);
-      done();
-    });
-
-    faucet.pipe(tokenizer).pipe(sink);
-
-    example.in.forEach(token => faucet.push(token));
-    faucet.push(null);
-  });
-});
-
+new WordTokenizerTester().test(examples);
